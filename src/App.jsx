@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import Header from "./components/Header";
-import { Search } from "lucide-react";
+import Search from "./components/Search";
 import Trashs from "./components/Trash";
 import MusicList from "./components/MusicList";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -43,7 +43,10 @@ function App() {
             <Header />
           </div>
           <div className="absolute right-10 top-14 gap-2 flex bg-gray-50 text-sky-900">
-            <Search />
+            <Search musics={musics} onSearch={music => {
+              setPlaylist(prev => [...prev, music]);
+              setMusics(prev => prev.filter(m => m.id !== music.id));
+            }} />
             <Trashs />
           </div>
         </div>
