@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 
-function MusicList() {
-  const [musics, setMusics] = useState([]);
+function MusicList({ musics }) {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -19,17 +17,6 @@ function MusicList() {
       });
     }
   };
-
-  useEffect(() => {
-    fetch(
-      "https://corsproxy.io/?https://api.deezer.com/chart/0/tracks?limit=100&index=${index}",
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setMusics(data.data || []);
-      })
-      .catch((error) => console.error("Erro ao buscar músicas:", error));
-  }, []);
 
   return (
     <div className="relative w-full h-full flex items-center group">
