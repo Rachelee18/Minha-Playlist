@@ -112,7 +112,7 @@ function Menu({ onPlaylistCreated }) {
       </div>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-72 bg-white rounded shadow-lg z-50">
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 w-72 bg-white rounded shadow-lg z-50">
           <div className="flex items-center justify-between px-4 py-2">
             <div className="font-semibold text-sky-900">Playlists</div>
             <button

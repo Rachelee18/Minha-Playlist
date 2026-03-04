@@ -7,6 +7,7 @@ import Trashs from "./components/Trash";
 import MusicList from "./components/MusicList";
 import PlaylistEditor from "./components/PlaylistEditor";
 import SaveButton from "./components/SaveButton";
+import Menu from "./components/Menu";
 import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
@@ -84,9 +85,12 @@ function App() {
         element={
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <div className="w-[100vw] h-[100vh] bg-gray-50">
-              <div className="w-full max-h-30 bg-gray-50 flex items-center justify-center">
+              <div className="w-full max-h-30 bg-gray-50 flex items-center justify-center relative">
+                <div className="absolute left-4 top-14">
+                  <Menu onPlaylistCreated={handlePlaylistCreated} />
+                </div>
                 <div className="p-10">
-                  <Header playlistName={lastPlaylistName} onPlaylistCreated={handlePlaylistCreated} />
+                  <Header showMenu={false} playlistName={lastPlaylistName} onPlaylistCreated={handlePlaylistCreated} />
                 </div>
                 <div className="absolute right-10 top-14 gap-2 flex bg-gray-50 text-sky-900">
                   <Search
