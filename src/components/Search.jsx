@@ -4,6 +4,7 @@ import { Search as SearchIcon } from "lucide-react";
 function Search({ musics, onSearch }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [hover, setHover] = useState(false);
 
   // aqui vai filtrar as músicas pelo título ou artista
   const filtered = query
@@ -16,13 +17,22 @@ function Search({ musics, onSearch }) {
 
   return (
     <div className="relative">
-      <button
-        className="p-2 rounded-full hover:bg-sky-100 focus:outline-none"
+      {/* BOTÃO CIRCULAR ESTILIZADO */}
+      <div
         onClick={() => setOpen((v) => !v)}
-        aria-label="Abrir busca"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        className={`
+          w-14 h-14 flex items-center justify-center
+          rounded-full transition-all duration-200 cursor-pointer
+          ${hover ? "bg-sky-900 shadow-lg scale-110" : "bg-gray-50 hover:bg-sky-100"}
+        `}
       >
-        <SearchIcon size={28} />
-      </button>
+        <SearchIcon
+          size={28}
+          className={hover ? "text-white" : "text-sky-900"}
+        />
+      </div>
       {open && (
         <div className="fixed top-0 right-0 w-[500px] h-full bg-white shadow-2xl z-50 flex flex-col p-6 animate-slideIn">
           <div className="flex items-center mb-4">
