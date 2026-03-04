@@ -8,6 +8,7 @@ function Search({ onSearch }) {
   // aqui vai buscar as músicas usando a API do Deezer sempre que a query mudar, e armazenar os resultados, o estado de loading e possíveis erros
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [hover, setHover] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -38,13 +39,22 @@ function Search({ onSearch }) {
 
   return (
     <div className="relative">
-      <button
-        className="p-2 rounded-full hover:bg-sky-100 focus:outline-none"
+      <div
         onClick={() => setOpen((v) => !v)}
-        aria-label="Abrir busca"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        className={`
+          w-14 h-14 flex items-center justify-center
+          rounded-full transition-all duration-200 cursor-pointer
+          ${hover ? "bg-sky-900 shadow-lg scale-110" : "bg-gray-50 hover:bg-sky-100"}
+        `}
       >
-        <SearchIcon size={28} />
-      </button>
+        <SearchIcon
+          size={28}
+          className={hover ? "text-white" : "text-sky-900"}
+        />
+      </div>
+
       {open && (
         <div className="fixed top-0 right-0 w-[500px] h-full bg-white shadow-2xl z-50 flex flex-col p-6 animate-slideIn">
           <div className="flex items-center mb-4">

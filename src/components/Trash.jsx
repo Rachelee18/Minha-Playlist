@@ -28,6 +28,7 @@ function Trashs({ playlist = [], onDeleteAll }) {
         />
       </div>
 
+
       {open && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl shadow-2xl w-[500px] h-[600px] flex flex-col animate-slideIn">
