@@ -1,16 +1,107 @@
-# React + Vite
+# Playlists de Músicas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Visão Geral
 
-Currently, two official plugins are available:
+O Playlists App é uma aplicação web desenvolvida em React que permite ao usuário pesquisar músicas em tempo real, criar playlists personalizadas arrastando músicas, nomear e salvar playlists no navegador. O projeto integra a API pública do Deezer para busca de músicas e utiliza localStorage para persistência das playlists criadas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Funcionalidades
 
-## React Compiler
+- **Pesquisa de músicas**: Busca dinâmica e ilimitada na API do Deezer, permitindo encontrar qualquer música disponível na plataforma.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Arrastar e soltar**: Adicione músicas à sua playlist de forma intuitiva usando drag-and-drop.
 
-## Expanding the ESLint configuration
+- **Criação e nomeação de playlists**: Dê um nome à sua playlist antes de salvá-la.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Persistência local**: Playlists são salvas no localStorage, permanecendo disponíveis mesmo após fechar o navegador.
+
+- **Visualização de playlists**: Exibe as músicas da playlist criada e, futuramente, listará todas as playlists salvas em um menu dedicado.
+
+- **Exclusão de playlists**: Possibilidade de remover todas as músicas da playlist atual.
+
+## Requisitos do Projeto
+
+### Requisitos Funcionais
+
+- O usuário deve poder pesquisar músicas por nome ou artista.
+
+- O usuário deve poder arrastar músicas para criar uma nova playlist.
+
+- O usuário deve poder nomear a playlist antes de salvá-la.
+
+- O usuário deve poder salvar playlists no navegador (localStorage).
+
+- O usuário deve poder visualizar as músicas da playlist criada.
+
+- O usuário deve poder remover todas as músicas da playlist criada.
+
+- O sistema deve buscar músicas em tempo real na API do Deezer.
+
+- Interface responsiva e intuitiva.
+
+### Requisitos Não-Funcionais
+
+- Persistência local das playlists (mesmo após fechar o navegador).
+
+- Feedback visual para ações de busca, arrastar e salvar.
+
+- Utilização de API pública para busca de músicas.
+
+## Tecnologias Utilizadas
+
+- [React](https://react.dev/) (com hooks)
+
+- [Vite](https://vitejs.dev/) (build tool)
+
+- [Tailwind CSS](https://tailwindcss.com/) (estilização)
+
+- [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) (drag-and-drop)
+
+- [lucide](https://lucide.dev/) (biblioteca de icones)
+
+- [Deezer API](https://developers.deezer.com/) (busca de músicas)
+
+## Estrutura do Projeto
+
+- `src/App.jsx`: Componente principal, gerencia playlists, músicas e integra os componentes.
+
+- `src/components/Search.jsx`: Busca músicas na API Deezer.
+
+- `src/components/MusicList.jsx`: Lista de músicas disponíveis para adicionar à playlist.
+
+- `src/components/Trash.jsx`: Permite limpar a playlist criada.
+
+- `src/components/Header.jsx`: Cabeçalho da aplicação.
+
+- `src/components/Menu.jsx`: (Futuro) Listagem de playlists salvas.
+
+## Como Usar
+
+1. Clone o repositório e acesse a pasta do projeto.
+
+(https://github.com/Rachelee18/Minha-Playlist)
+
+2. Instale as dependências:
+
+- npm install
+
+3. Inicie o servidor de desenvolvimento:
+
+- npm run dev
+
+4. Acesse a aplicação no navegador pelo endereço exibido no terminal.
+
+## Diferenciais
+
+- **Busca ilimitada**: O componente Search permite pesquisar qualquer música disponível na API do Deezer, não se limitando a uma lista local.
+
+- **Experiência visual**: Interface moderna, responsiva e intuitiva, com feedback visual para ações de arrastar e soltar.
+
+- **Persistência automática**: Playlists são salvas automaticamente no localStorage ao serem criadas ou modificadas.
+
+## Possíveis Melhorias Futuras
+
+- Compartilhamento de playlists via link.
+
+- Edição e remoção individual de músicas da playlist.
+
+- Autenticação de usuário para playlists na nuvem.
