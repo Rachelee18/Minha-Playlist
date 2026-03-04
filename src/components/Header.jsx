@@ -5,6 +5,11 @@ function Header({ playlistName }) {
         <h1 className="@theme --font- font-sans text-sky-900 text-5xl font-bold">
           My Playlist App
         </h1>
+        {playlistName && (
+          <p className="text-sky-900 text-lg font-semibold mt-1">
+            {playlistName}
+          </p>
+        )}
       </div>
     </div>
   );
