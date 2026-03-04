@@ -112,7 +112,7 @@ function Menu({ onPlaylistCreated }) {
       </div>
 
       {open && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 w-72 bg-white rounded shadow-lg z-50">
+        <div className="fixed w-[300px] h-[200px] top-30 left bg-white rounded shadow-lg z-50">
           <div className="flex items-center justify-between px-4 py-2">
             <div className="font-semibold text-sky-900">Playlists</div>
             <button
@@ -128,7 +128,9 @@ function Menu({ onPlaylistCreated }) {
 
           <div className="max-h-48 overflow-y-auto">
             {playlists.length === 0 && !isAdding ? (
-              <div className="p-4 text-sm text-gray-500">Nenhuma playlist criada</div>
+              <div className="p-4 text-sm text-gray-500 align-center flex flex-col items-center gap-2">
+                Nenhuma playlist criada
+              </div>
             ) : (
               <>
                 {playlists.map((p) => (

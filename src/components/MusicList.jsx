@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 
-function MusicList({ musics, onSave }) {
+function MusicList({ musics }) {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -61,16 +61,6 @@ function MusicList({ musics, onSave }) {
         >
           <ChevronRight />
         </button>
-
-        {/* Botão Salvar */}
-        {onSave && (
-          <button
-            onClick={onSave}
-            className="px-6 py-2 bg-sky-900 text-white rounded hover:bg-sky-800 transition-colors font-semibold"
-          >
-            Salvar
-          </button>
-        )}
       </div>
     </div>
   );

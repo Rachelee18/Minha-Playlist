@@ -12,6 +12,11 @@ import Menu from "./components/Menu";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function App() {
+  // Limpa o localStorage ao carregar o app
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   const [playlist, setPlaylist] = useState([]);
   const [musics, setMusics] = useState([]);
   const [lastPlaylistName, setLastPlaylistName] = useState(() => {
@@ -99,22 +104,30 @@ function App() {
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <div className="w-[100vw] h-[100vh] bg-gray-50">
               <div className="w-full max-h-30 bg-gray-50 flex items-center justify-center relative">
-                <div className="absolute left-4 top-14">
+                <div className="absolute left-4 top-10">
                   <Menu onPlaylistCreated={handlePlaylistCreated} />
                 </div>
                 <div className="p-10">
-                  <Header showMenu={false} playlistName={lastPlaylistName} onPlaylistCreated={handlePlaylistCreated} />
+                  <Header
+                    showMenu={false}
+                    playlistName={lastPlaylistName}
+                    onPlaylistCreated={handlePlaylistCreated}
+                  />
                 </div>
-                <div className="absolute right-10 top-14 gap-2 flex bg-gray-50 text-sky-900">
+                <div className="absolute right-6 top-12">
+                  <SaveButton onClick={savePlaylist} className="" />
+                </div>
+                <div className="absolute right-40 top-10 gap-2 flex bg-gray-50 text-sky-900">
                   <Search
                     musics={musics}
                     onSearch={(music) => {
                       setPlaylist((prev) => [...prev, music]);
-                      setMusics((prev) => prev.filter((m) => m.id !== music.id));
+                      setMusics((prev) =>
+                        prev.filter((m) => m.id !== music.id),
+                      );
                     }}
                   />
                   <Trashs />
-                  <SaveButton onClick={savePlaylist} />
                 </div>
               </div>
               <Droppable droppableId="playlist">
@@ -131,15 +144,19 @@ function App() {
                     {playlist.length === 0 ? (
                       <div className="w-full h-full flex items-center justify-center text-gray-400 text-center px-4">
                         <div>
-                          <p className="text-lg font-semibold">Arraste músicas aqui</p>
-                          <p className="text-sm">ou use a busca para adicionar</p>
+                          <p className="text-lg font-semibold">
+                            Arraste músicas aqui
+                          </p>
+                          <p className="text-sm">
+                            ou use a busca para adicionar
+                          </p>
                         </div>
                       </div>
                     ) : (
                       <div className="w-full p-4">
                         {playlist.map((music, index) => (
                           <Draggable
-                          //draggable = itens que podem ser arrastados
+                            //draggable = itens que podem ser arrastados
                             key={`${music.id}-${index}`}
                             draggableId={`${music.id}-${index}`}
                             index={index}
@@ -164,7 +181,8 @@ function App() {
                                       {music.title}
                                     </p>
                                     <p className="text-xs text-gray-600 truncate">
-                                      {music.artist?.name || "Artista desconhecido"}
+                                      {music.artist?.name ||
+                                        "Artista desconhecido"}
                                     </p>
                                   </div>
                                 </div>
@@ -198,7 +216,11 @@ function App() {
                       snapshot.isDraggingOver ? "bg-white/50" : "bg-white/30"
                     }`}
                   >
-                    <MusicList droppableId="musics" musics={musics} playlistName={lastPlaylistName} />
+                    <MusicList
+                      droppableId="musics"
+                      musics={musics}
+                      playlistName={lastPlaylistName}
+                    />
                     {provided.placeholder}
                   </div>
                 )}
