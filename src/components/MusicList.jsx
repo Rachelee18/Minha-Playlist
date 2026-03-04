@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 function MusicList({ musics }) {
   const scrollRef = useRef(null);
@@ -29,31 +30,53 @@ function MusicList({ musics }) {
           <ChevronLeft />
         </button>
 
-        {/* Container da Lista (Agora com Ref e sem barra visível) */}
-        <div
-          ref={scrollRef}
-          className="w-full h-full flex flex-row overflow-x-auto gap-4 items-center px-12 scrollbar-hide"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} // Esconde a barra no Firefox/IE
-        >
-          {musics.map((music) => (
+        <Droppable droppableId="musics" direction="horizontal">
+          {(provided) => (
             <div
-              key={music.id}
-              className="min-w-[280px] h-24 bg-white rounded-xl shadow-md p-4 flex flex-row items-center gap-4"
+              ref={(node) => {
+                scrollRef.current = node;
+                provided.innerRef(node);
+              }}
+              {...provided.droppableProps}
+              className="w-full h-full flex flex-row overflow-x-auto gap-4 items-center px-12 scrollbar-hide"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              <img
-                src={music.album.cover_medium}
-                className="w-14 h-14 rounded-lg object-cover"
-                alt=""
-              />
-              <div className="flex flex-col">
-                <h4 className="text-sm font-bold truncate w-40">
-                  {music.title}
-                </h4>
-                <p className="text-xs text-gray-500">{music.artist.name}</p>
-              </div>
+              {musics.map((music, index) => (
+                <Draggable
+                  key={music.id}
+                  draggableId={music.id.toString()}
+                  index={index}
+                >
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className={`min-w-[280px] h-24 bg-white rounded-xl shadow-md p-4 flex flex-row items-center gap-4 transition-all ${
+                        snapshot.isDragging ? "bg-sky-200 shadow-lg" : ""
+                      }`}
+                    >
+                      <img
+                        src={music.album.cover_medium}
+                        className="w-14 h-14 rounded-lg object-cover"
+                        alt=""
+                      />
+                      <div className="flex flex-col">
+                        <h4 className="text-sm font-bold truncate w-40">
+                          {music.title}
+                        </h4>
+                        <p className="text-xs text-gray-500">
+                          {music.artist.name}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
             </div>
-          ))}
-        </div>
+          )}
+        </Droppable>
 
         <button
           onClick={() => scroll("right")}

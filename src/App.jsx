@@ -58,6 +58,7 @@ function App() {
     ) {
       const movedMusic = musics[source.index];
       setPlaylist((prev) => [...prev, movedMusic]);
+      setMusics((prev) => prev.filter((_, i) => i !== source.index));
       return;
     }
 
@@ -153,7 +154,7 @@ function App() {
                         </div>
                       </div>
                     ) : (
-                      <div className="w-full p-4">
+                      <div className="w-full p-4 flex flex-col">
                         {playlist.map((music, index) => (
                           <Draggable
                             //draggable = itens que podem ser arrastados
@@ -166,7 +167,8 @@ function App() {
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
-                                className={`flex justify-between items-center p-3 mb-2 rounded-lg transition-all ${
+                                style={{ minWidth: 0, width: "100%" }}
+                                className={`flex justify-between items-center p-3 mb-2 rounded-lg transition-all w-full ${
                                   snapshot.isDragging
                                     ? "bg-sky-200 shadow-md"
                                     : "bg-gray-100 hover:bg-gray-200"
@@ -201,13 +203,15 @@ function App() {
                             )}
                           </Draggable>
                         ))}
-                        {provided.placeholder}
+                        <div style={{ minWidth: 0, width: "100%" }}>
+                          {provided.placeholder}
+                        </div>
                       </div>
                     )}
                   </div>
                 )}
               </Droppable>
-              <Droppable droppableId="musics" type="MUSIC">
+              <Droppable droppableId="musics" direction="horizontal">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -216,11 +220,7 @@ function App() {
                       snapshot.isDraggingOver ? "bg-white/50" : "bg-white/30"
                     }`}
                   >
-                    <MusicList
-                      droppableId="musics"
-                      musics={musics}
-                      playlistName={lastPlaylistName}
-                    />
+                    <MusicList musics={musics} />
                     {provided.placeholder}
                   </div>
                 )}
