@@ -4,11 +4,12 @@ import "./index.css";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import Trashs from "./components/Trash";
+import { Trash2 } from "lucide-react";
 import MusicList from "./components/MusicList";
 import PlaylistEditor from "./components/PlaylistEditor";
 import SaveButton from "./components/SaveButton";
 import Menu from "./components/Menu";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function App() {
   const [playlist, setPlaylist] = useState([]);
@@ -51,7 +52,19 @@ function App() {
       destination.droppableId === "playlist"
     ) {
       const movedMusic = musics[source.index];
-      setPlaylist([...playlist, movedMusic]);
+      setPlaylist((prev) => [...prev, movedMusic]);
+      return;
+    }
+
+    if (
+      source.droppableId === "playlist" &&
+      destination.droppableId === "playlist" &&
+      source.index !== destination.index
+    ) {
+      const items = Array.from(playlist);
+      const [moved] = items.splice(source.index, 1);
+      items.splice(destination.index, 0, moved);
+      setPlaylist(items);
     }
   };
 
@@ -104,10 +117,92 @@ function App() {
                   <SaveButton onClick={savePlaylist} />
                 </div>
               </div>
-              <div className="w-[500px] h-[620px] bg-white rounded-xl shadow-[0_-10px_15px_5px_rgba(0,0,0,0.1)] absolute left-1/2 top-56 -translate-x-1/2 flex items-center justify-center"></div>
-              <div className="w-[1910px] h-36 bg-white/30 rounded-xl shadow-[-5px_15px_10px_20px_rgba(1,0,0,0.1)] absolute justify-center items-center left-1/2 -translate-x-1/2 bottom-2">
-                <MusicList musics={musics} playlistName={lastPlaylistName} />
-              </div>
+              <Droppable droppableId="playlist">
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className={`w-[500px] h-[620px] rounded-xl shadow-[0_-10px_15px_5px_rgba(0,0,0,0.1)] absolute left-1/2 top-56 -translate-x-1/2 flex flex-col items-center justify-start overflow-y-auto transition-all ${
+                      snapshot.isDraggingOver ? "bg-sky-50" : "bg-white"
+                      //snapshot = estado atual do drag
+                      // isDraggingOver = se o item está sendo arrastado sobre esse droppable
+                    }`}
+                  >
+                    {playlist.length === 0 ? (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 text-center px-4">
+                        <div>
+                          <p className="text-lg font-semibold">Arraste músicas aqui</p>
+                          <p className="text-sm">ou use a busca para adicionar</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="w-full p-4">
+                        {playlist.map((music, index) => (
+                          <Draggable
+                          //draggable = itens que podem ser arrastados
+                            key={`${music.id}-${index}`}
+                            draggableId={`${music.id}-${index}`}
+                            index={index}
+                          >
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className={`flex justify-between items-center p-3 mb-2 rounded-lg transition-all ${
+                                  snapshot.isDragging
+                                    ? "bg-sky-200 shadow-md"
+                                    : "bg-gray-100 hover:bg-gray-200"
+                                }`}
+                              >
+                                <div className="flex-1 min-w-0 flex items-center gap-2">
+                                  <span className="font-bold text-xs text-sky-700">
+                                    {index + 1}.
+                                  </span>
+                                  <div className="truncate">
+                                    <p className="font-semibold text-sm truncate">
+                                      {music.title}
+                                    </p>
+                                    <p className="text-xs text-gray-600 truncate">
+                                      {music.artist?.name || "Artista desconhecido"}
+                                    </p>
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={() => {
+                                    setPlaylist((prev) =>
+                                      prev.filter((_, i) => i !== index),
+                                    );
+                                  }}
+                                  className="ml-2 text-red-600 hover:bg-red-100 px-2 py-1 rounded transition-colors"
+                                  title="Remover música"
+                                >
+                                  <Trash2 size={16} />
+                                </button>
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </Droppable>
+              <Droppable droppableId="musics" type="MUSIC">
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className={`w-[1910px] h-36 bg-white/30 rounded-xl shadow-[-5px_15px_10px_20px_rgba(1,0,0,0.1)] absolute justify-center items-center left-1/2 -translate-x-1/2 bottom-2 transition-all ${
+                      snapshot.isDraggingOver ? "bg-white/50" : "bg-white/30"
+                    }`}
+                  >
+                    <MusicList droppableId="musics" musics={musics} playlistName={lastPlaylistName} />
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
             </div>
           </DragDropContext>
         }
