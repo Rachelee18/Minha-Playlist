@@ -205,6 +205,11 @@ function App() {
                                   <span className="font-bold text-xs text-sky-700">
                                     {index + 1}.
                                   </span>
+                                  <img
+                                    src={music.album.cover_medium}
+                                    className="w-14 h-14 rounded-lg object-cover"
+                                    alt=""
+                                  />
                                   <div className="truncate">
                                     <p className="font-semibold text-sm truncate">
                                       {music.title}
@@ -215,6 +220,7 @@ function App() {
                                     </p>
                                   </div>
                                 </div>
+
                                 <button
                                   onClick={() => {
                                     addToTrash(playlist[index]);
