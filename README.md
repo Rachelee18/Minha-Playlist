@@ -68,7 +68,7 @@ O Playlists App é uma aplicação web desenvolvida em React que permite ao usu�
 
 - `src/components/MusicList.jsx`: Lista de músicas disponíveis para adicionar à playlist.
 
-- `src/components/Trash.jsx`: Permite limpar a playlist criada.
+- `src/components/Trash.jsx`: Exibe músicas excluídas (lixeira). Ao clicar no ícone de lixeira ao lado de uma música ela é removida da playlist e adicionada à lixeira global, que pode ser esvaziada permanentemente.
 
 - `src/components/Header.jsx`: Cabeçalho da aplicação.
 

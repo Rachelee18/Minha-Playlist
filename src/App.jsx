@@ -19,6 +19,7 @@ function App() {
 
   const [playlist, setPlaylist] = useState([]);
   const [musics, setMusics] = useState([]);
+  const [trash, setTrash] = useState([]);
   const [lastPlaylistName, setLastPlaylistName] = useState(() => {
     try {
       return localStorage.getItem("lastPlaylistName") || "";
@@ -74,6 +75,14 @@ function App() {
       items.splice(destination.index, 0, moved);
       setPlaylist(items);
     }
+  };
+
+  const addToTrash = (music) => {
+    setTrash((prev) => [...prev, music]);
+  };
+
+  const clearTrash = () => {
+    setTrash([]);
   };
 
   const savePlaylist = () => {
@@ -146,7 +155,7 @@ function App() {
                       );
                     }}
                   />
-                  <Trashs />
+                  <Trashs playlist={trash} onDeleteAll={clearTrash} />
                 </div>
               </div>
               <Droppable droppableId="playlist">
@@ -208,6 +217,7 @@ function App() {
                                 </div>
                                 <button
                                   onClick={() => {
+                                    addToTrash(playlist[index]);
                                     setPlaylist((prev) =>
                                       prev.filter((_, i) => i !== index),
                                     );
