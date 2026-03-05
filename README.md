@@ -14,7 +14,9 @@ O Playlists App é uma aplicação web desenvolvida em React que permite ao usu�
 
 - **Persistência local**: Playlists são salvas no localStorage, permanecendo disponíveis mesmo após fechar o navegador.
 
-- **Visualização de playlists**: Exibe as músicas da playlist criada e, futuramente, listará todas as playlists salvas em um menu dedicado.
+- **Visualização de playlists**: Exibe as músicas da playlist criada e lista todas as playlists salvas em um menu dedicado.
+
+- **Edição de playlists**: Possibilidade de editar playlists criadas, removendo ou adicionando músicas e renomear.
 
 - **Exclusão de playlists**: Possibilidade de remover todas as músicas da playlist atual.
 
@@ -72,7 +74,9 @@ O Playlists App é uma aplicação web desenvolvida em React que permite ao usu�
 
 - `src/components/Header.jsx`: Cabeçalho da aplicação.
 
-- `src/components/Menu.jsx`: (Futuro) Listagem de playlists salvas.
+- `src/components/Menu.jsx`: Listagem de playlists salvas.
+
+- `src/components/PlaylistEditor.jsx`: Edição do conteúdo da Playlist (Alteração de nome e troca e exclusão de músicas existentes na playlist selecionada).
 
 ## Como Usar
 
@@ -83,6 +87,14 @@ O Playlists App é uma aplicação web desenvolvida em React que permite ao usu�
 2. Instale as dependências:
 
 - npm install
+
+- npm install react-router-dom
+
+- npm install lucide-react@0.435.0
+
+- npm install react-beautiful-dnd --legacy-peer-deps
+
+- npm install tailwindcss@3.4.10 postcss@8.4.41 autoprefixer@10.4.20 --legacy-peer-deps
 
 3. Inicie o servidor de desenvolvimento:
 
