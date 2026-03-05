@@ -26,7 +26,33 @@ O Playlist App é uma aplicação web moderna desenvolvida em React, que permite
 
 ## Requisitos
 
+<<<<<<< HEAD
 ### Funcionais
+=======
+- **Visualização de playlists**: Exibe as músicas da playlist criada e lista todas as playlists salvas em um menu dedicado.
+
+- **Edição de playlists**: Possibilidade de editar playlists criadas, removendo ou adicionando músicas e renomear.
+
+- **Exclusão de playlists**: Possibilidade de remover todas as músicas da playlist atual.
+
+## Requisitos do Projeto
+
+### Requisitos Funcionais
+
+- O usuário deve poder pesquisar músicas por nome ou artista.
+
+- O usuário deve poder arrastar músicas para criar uma nova playlist.
+
+- O usuário deve poder nomear a playlist antes de salvá-la.
+
+- O usuário deve poder salvar playlists no navegador (localStorage).
+
+- O usuário deve poder visualizar as músicas da playlist criada.
+
+- O usuário deve poder remover todas as músicas da playlist criada.
+
+- O sistema deve buscar músicas em tempo real na API do Deezer.
+>>>>>>> 72841e167305cb5e97df0cd68068cff62db572ea
 
 - Pesquisar músicas por nome ou artista.
 - Arrastar músicas para criar/editar playlists.
@@ -55,6 +81,7 @@ O Playlist App é uma aplicação web moderna desenvolvida em React, que permite
 
 ## Estrutura do Projeto
 
+<<<<<<< HEAD
 - `src/App.jsx`: Componente principal, gerencia playlists, músicas, lixeira e integra todos os componentes. Controla o estado global e define as rotas.
 - `src/components/Header.jsx`: Exibe o título do app e o nome da playlist atual.
 - `src/components/Search.jsx`: Busca músicas na API Deezer, controla loading, erros e resultados.
@@ -64,6 +91,21 @@ O Playlist App é uma aplicação web moderna desenvolvida em React, que permite
 - `src/components/SaveButton.jsx`: Botão estilizado para salvar playlists.
 - `src/components/PlaylistEditor.jsx`: Tela de edição de playlists salvas, permite editar nome e músicas.
 - `public/`, `index.html`, `index.css`, `vite.config.js`, `tailwind.config.js`, `postcss.config.js`, `eslint.config.js`, `package.json`: arquivos de configuração e estrutura base do projeto.
+=======
+- `src/App.jsx`: Componente principal, gerencia playlists, músicas e integra os componentes.
+
+- `src/components/Search.jsx`: Busca músicas na API Deezer.
+
+- `src/components/MusicList.jsx`: Lista de músicas disponíveis para adicionar à playlist.
+
+- `src/components/Trash.jsx`: Exibe músicas excluídas (lixeira). Ao clicar no ícone de lixeira ao lado de uma música ela é removida da playlist e adicionada à lixeira global, que pode ser esvaziada permanentemente.
+
+- `src/components/Header.jsx`: Cabeçalho da aplicação.
+
+- `src/components/Menu.jsx`: Listagem de playlists salvas.
+
+- `src/components/PlaylistEditor.jsx`: Edição do conteúdo da Playlist (Alteração de nome e troca e exclusão de músicas existentes na playlist selecionada).
+>>>>>>> 72841e167305cb5e97df0cd68068cff62db572ea
 
 ## Como Usar
 
