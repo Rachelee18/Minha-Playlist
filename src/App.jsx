@@ -26,9 +26,11 @@ function App() {
       return "";
     }
   });
+  const [playlistListVersion, setPlaylistListVersion] = useState(0);
 
   const handlePlaylistCreated = (name) => {
     setLastPlaylistName(name);
+    setPlaylistListVersion((v) => v + 1);
     try {
       localStorage.setItem("lastPlaylistName", name);
     } catch (e) {
@@ -80,18 +82,31 @@ function App() {
       return;
     }
 
-    const name = prompt("Digite um nome para a playlist:");
-    if (!name) return;
+    let name = lastPlaylistName;
+    if (!name) {
+      name = prompt("Digite um nome para a playlist:");
+      if (!name) return;
+    }
 
     try {
       const stored = localStorage.getItem("playlists");
       const list = stored ? JSON.parse(stored) : [];
-      const id = Date.now();
-      list.push({ id, name });
+      // Verifica se já existe uma playlist com esse nome
+      let playlistObj = list.find((p) => p.name === name);
+      let id;
+      if (playlistObj) {
+        id = playlistObj.id;
+      } else {
+        id = Date.now();
+        list.push({ id, name });
+      }
       localStorage.setItem("playlists", JSON.stringify(list));
       localStorage.setItem(`playlist_${id}`, JSON.stringify(playlist));
-      handlePlaylistCreated(name);
+      handlePlaylistCreated(name, id);
       alert("Playlist salva com sucesso");
+      // Limpa o estado para criar uma nova playlist
+      setPlaylist([]);
+      setLastPlaylistName("");
     } catch (e) {
       console.error("Erro ao salvar playlist:", e);
     }
@@ -106,7 +121,10 @@ function App() {
             <div className="w-[100vw] h-[100vh] bg-gray-50">
               <div className="w-full max-h-30 bg-gray-50 flex items-center justify-center relative">
                 <div className="absolute left-4 top-10">
-                  <Menu onPlaylistCreated={handlePlaylistCreated} />
+                  <Menu
+                    onPlaylistCreated={handlePlaylistCreated}
+                    playlistListVersion={playlistListVersion}
+                  />
                 </div>
                 <div className="p-10">
                   <Header

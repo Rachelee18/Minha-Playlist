@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu as MenuIcon, Plus, Trash2 } from "lucide-react";
 
-function Menu({ onPlaylistCreated }) {
+function Menu({ onPlaylistCreated, playlistListVersion, lastPlaylistId }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [playlists, setPlaylists] = useState([]);
@@ -25,7 +25,7 @@ function Menu({ onPlaylistCreated }) {
       }
     };
     loadPlaylists();
-  }, []);
+  }, [playlistListVersion]);
 
   // Fechar menu ao clicar fora
   useEffect(() => {
@@ -64,14 +64,11 @@ function Menu({ onPlaylistCreated }) {
       setNewName("");
       return;
     }
-    const newPlaylist = { id: Date.now(), name };
-    const newList = [...playlists, newPlaylist];
-    savePlaylists(newList);
     if (onPlaylistCreated) onPlaylistCreated(name);
     setIsAdding(false);
     setNewName("");
     setOpen(false);
-    // o usuário permanece na página principal
+    // A playlist só será adicionada à lista ao salvar
   };
 
   const cancelCreate = () => {
@@ -93,6 +90,14 @@ function Menu({ onPlaylistCreated }) {
     setOpen(false);
     navigate(`/playlist/${id}`);
   };
+
+  // Se a playlist foi recém criada e salva, navegar automaticamente para ela
+  useEffect(() => {
+    if (lastPlaylistId) {
+      navigate(`/playlist/${lastPlaylistId}`);
+    }
+    // eslint-disable-next-line
+  }, [lastPlaylistId]);
 
   return (
     <div className="relative" ref={ref}>

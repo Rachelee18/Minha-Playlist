@@ -43,8 +43,8 @@ function MusicList({ musics }) {
             >
               {musics.map((music, index) => (
                 <Draggable
-                  key={music.id}
-                  draggableId={music.id.toString()}
+                  key={`musics-${music.id}-${index}`}
+                  draggableId={`musics-${music.id}-${index}`}
                   index={index}
                 >
                   {(provided, snapshot) => (
