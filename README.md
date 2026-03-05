@@ -163,12 +163,10 @@ Exibe lixeira de músicas deletadas, permite restaurar ou remover definitivament
 
 - Como funciona o fluxo de criação de uma playlist? O usuário busca músicas, arrasta para a playlist, edita o nome e salva. Os dados são persistidos no localStorage.
 - Como as músicas são buscadas? Via API do Deezer, usando fetch e proxy para CORS.
-- Como funciona o Drag and Drop? Usando react-beautiful-dnd, músicas podem ser arrastadas da lista para a playlist e reordenadas.
+- Como funciona o Drag and Drop? Usando react-beautiful-dnd, músicas podem ser arrastadas da lista para a playlist.
 - Como as playlists são salvas? No localStorage, com nome e lista de músicas.
 - Como a aplicação lida com múltiplas playlists? O Menu permite criar, renomear, excluir e navegar entre playlists.
 - Como garantir que não haja músicas duplicadas na playlist? Ao adicionar, a música é removida da lista de disponíveis.
 - Como funciona a busca personalizada? O componente Search faz fetch na API Deezer com a query do usuário.
 
 ---
-
-**Atualizado em 05/03/2026**
