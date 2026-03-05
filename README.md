@@ -1,4 +1,4 @@
-# Playlists de Músicas
+# Playlists de Música
 
 ## Visão Geral
 
